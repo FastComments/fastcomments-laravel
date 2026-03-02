@@ -1,0 +1,54 @@
+{
+    "name": "fastcomments/laravel",
+    "description": "Laravel integration for FastComments — Blade components, SSO, and API access",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "laravel",
+        "fastcomments",
+        "comments",
+        "live-commenting",
+        "sso"
+    ],
+    "homepage": "https://fastcomments.com",
+    "authors": [
+        {
+            "name": "FastComments",
+            "homepage": "https://fastcomments.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/support": "^10.0|^11.0|^12.0",
+        "illuminate/view": "^10.0|^11.0|^12.0",
+        "illuminate/contracts": "^10.0|^11.0|^12.0",
+        "fastcomments/fastcomments-php": "^0.0",
+        "fastcomments/sso": "^0.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^8.0|^9.0|^10.0",
+        "phpunit/phpunit": "^10.0|^11.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "FastComments\\Laravel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FastComments\\Laravel\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "FastComments\\Laravel\\FastCommentsServiceProvider"
+            ],
+            "aliases": {
+                "FastComments": "FastComments\\Laravel\\Facades\\FastComments"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
