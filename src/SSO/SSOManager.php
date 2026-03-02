@@ -41,32 +41,46 @@ class SSOManager
             return null;
         }
 
-        $result = [];
+        $user = $user ?? Auth::user();
 
         $loginUrl = $this->loginUrl ?? $this->defaultLoginUrl();
         $logoutUrl = $this->logoutUrl ?? $this->defaultLogoutUrl();
 
+        if ($this->mode === 'secure') {
+            $sso = [];
+
+            if ($user !== null) {
+                $userData = $this->mapper->map($user);
+                $ssoUserData = $this->buildSecureSSOUserData($userData);
+                $ssoInstance = FastCommentsSSO::createSecure($this->apiKey, $ssoUserData);
+                $payload = $ssoInstance->getSecureSSOPayload();
+                $sso['userDataJSONBase64'] = $payload->userDataJSONBase64;
+                $sso['verificationHash'] = $payload->verificationHash;
+                $sso['timestamp'] = $payload->timestamp;
+            }
+
+            if ($loginUrl !== null) {
+                $sso['loginURL'] = $loginUrl;
+            }
+            if ($logoutUrl !== null) {
+                $sso['logoutURL'] = $logoutUrl;
+            }
+
+            return ['sso' => $sso];
+        }
+
+        // Simple SSO mode
+        $result = [];
+
         if ($loginUrl !== null) {
             $result['loginURL'] = $loginUrl;
         }
-
         if ($logoutUrl !== null) {
             $result['logoutURL'] = $logoutUrl;
         }
 
-        $user = $user ?? Auth::user();
-
-        if ($user === null) {
-            // Unauthenticated — return just login/logout URLs
-            return $result;
-        }
-
-        $userData = $this->mapper->map($user);
-
-        if ($this->mode === 'secure') {
-            $ssoPayload = $this->buildSecurePayload($userData);
-            $result['sso'] = $ssoPayload;
-        } else {
+        if ($user !== null) {
+            $userData = $this->mapper->map($user);
             $result['simpleSSO'] = $this->buildSimplePayload($userData);
         }
 
@@ -81,31 +95,6 @@ class SSOManager
         $userData = $this->mapper->map($user);
         $ssoUserData = $this->buildSecureSSOUserData($userData);
         $sso = FastCommentsSSO::createSecure($this->apiKey, $ssoUserData);
-
-        return $sso->prepareToSend();
-    }
-
-    /**
-     * Build a secure SSO payload (JSON token string with loginURL/logoutURL).
-     *
-     * @param array<string, mixed> $userData
-     * @return string JSON token
-     */
-    protected function buildSecurePayload(array $userData): string
-    {
-        $ssoUserData = $this->buildSecureSSOUserData($userData);
-        $sso = FastCommentsSSO::createSecure($this->apiKey, $ssoUserData);
-
-        $loginUrl = $this->loginUrl ?? $this->defaultLoginUrl();
-        $logoutUrl = $this->logoutUrl ?? $this->defaultLogoutUrl();
-
-        if ($loginUrl !== null) {
-            $sso->loginURL = $loginUrl;
-        }
-
-        if ($logoutUrl !== null) {
-            $sso->logoutURL = $logoutUrl;
-        }
 
         return $sso->prepareToSend();
     }

@@ -38,10 +38,11 @@ class SSOManagerTest extends TestCase
         $result = $manager->forWidget();
 
         $this->assertIsArray($result);
-        $this->assertSame('https://example.com/login', $result['loginURL']);
-        $this->assertSame('https://example.com/logout', $result['logoutURL']);
-        $this->assertArrayNotHasKey('sso', $result);
-        $this->assertArrayNotHasKey('simpleSSO', $result);
+        $this->assertArrayHasKey('sso', $result);
+        $this->assertIsArray($result['sso']);
+        $this->assertSame('https://example.com/login', $result['sso']['loginURL']);
+        $this->assertSame('https://example.com/logout', $result['sso']['logoutURL']);
+        $this->assertArrayNotHasKey('userDataJSONBase64', $result['sso']);
     }
 
     public function test_for_widget_secure_mode_with_authenticated_user(): void
@@ -59,16 +60,18 @@ class SSOManagerTest extends TestCase
 
         $this->assertIsArray($result);
         $this->assertArrayHasKey('sso', $result);
-        $this->assertIsString($result['sso']);
+        $this->assertIsArray($result['sso']);
 
-        // The SSO token should be valid JSON containing the secure payload
-        $decoded = json_decode($result['sso'], true);
-        $this->assertArrayHasKey('userDataJSONBase64', $decoded);
-        $this->assertArrayHasKey('verificationHash', $decoded);
-        $this->assertArrayHasKey('timestamp', $decoded);
+        // The sso value should be an array (not a JSON string) with the secure payload fields
+        $sso = $result['sso'];
+        $this->assertArrayHasKey('userDataJSONBase64', $sso);
+        $this->assertArrayHasKey('verificationHash', $sso);
+        $this->assertArrayHasKey('timestamp', $sso);
+        $this->assertSame('https://example.com/login', $sso['loginURL']);
+        $this->assertSame('https://example.com/logout', $sso['logoutURL']);
 
         // Decode the user data to verify
-        $userData = json_decode(base64_decode($decoded['userDataJSONBase64']), true);
+        $userData = json_decode(base64_decode($sso['userDataJSONBase64']), true);
         $this->assertSame('5', $userData['id']);
         $this->assertSame('test@example.com', $userData['email']);
         $this->assertSame('Tester', $userData['username']);
