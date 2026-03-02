@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c038b107c368f3a782fc4adf6473080d",
+    "content-hash": "6cfca803ad0452ccf0bd61ed662efec8",
     "packages": [
         {
             "name": "brick/math",
@@ -510,11 +510,17 @@
         },
         {
             "name": "fastcomments/fastcomments-php",
-            "version": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": "../fastcomments-php",
+            "version": "v1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FastComments/fastcomments-php.git",
                 "reference": "e2e78615a79227417358bf9696a35f4ba016efa0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FastComments/fastcomments-php/zipball/e2e78615a79227417358bf9696a35f4ba016efa0",
+                "reference": "e2e78615a79227417358bf9696a35f4ba016efa0",
+                "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
@@ -534,11 +540,7 @@
                     "FastComments\\Client\\": "lib/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "FastComments\\Client\\Test\\": "test/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -563,17 +565,25 @@
                 "rest",
                 "sdk"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/FastComments/fastcomments-php/issues",
+                "source": "https://github.com/FastComments/fastcomments-php/tree/v1.2.0"
+            },
+            "time": "2026-01-09T04:18:56+00:00"
         },
         {
             "name": "fastcomments/sso",
-            "version": "dev-main",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FastComments/fastcomments-php-sso.git",
+                "reference": "f2d0cb85e29086ad6d85c5a2da911dd1066a572e"
+            },
             "dist": {
-                "type": "path",
-                "url": "../fastcomments-php-sso",
-                "reference": "a2be94058d73331cdf707316e24ad5d9e2c08b38"
+                "type": "zip",
+                "url": "https://api.github.com/repos/FastComments/fastcomments-php-sso/zipball/f2d0cb85e29086ad6d85c5a2da911dd1066a572e",
+                "reference": "f2d0cb85e29086ad6d85c5a2da911dd1066a572e",
+                "shasum": ""
             },
             "require": {
                 "ext-hash": "*",
@@ -590,11 +600,7 @@
                     "FastComments\\SSO\\": "src/"
                 }
             },
-            "autoload-dev": {
-                "psr-4": {
-                    "FastComments\\SSO\\Test\\": "tests/"
-                }
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -605,9 +611,11 @@
                 }
             ],
             "description": "FastComments SSO (Single Sign-On) implementation for PHP",
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "issues": "https://github.com/FastComments/fastcomments-php-sso/issues",
+                "source": "https://github.com/FastComments/fastcomments-php-sso/tree/v0.0.1"
+            },
+            "time": "2025-03-26T23:36:19+00:00"
         },
         {
             "name": "fruitcake/php-cors",
@@ -8851,7 +8859,7 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,

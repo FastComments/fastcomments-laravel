@@ -17,13 +17,13 @@
             "homepage": "https://fastcomments.com"
         }
     ],
-    "require": {
+"require": {
         "php": "^8.1",
         "illuminate/support": "^10.0|^11.0|^12.0",
         "illuminate/view": "^10.0|^11.0|^12.0",
         "illuminate/contracts": "^10.0|^11.0|^12.0",
-        "fastcomments/fastcomments-php": "^0.0",
-        "fastcomments/sso": "^0.0"
+        "fastcomments/fastcomments-php": "*",
+        "fastcomments/sso": "*"
     },
     "require-dev": {
         "orchestra/testbench": "^8.0|^9.0|^10.0",
