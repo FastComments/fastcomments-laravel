@@ -24,34 +24,12 @@ jobs:
           # Laravel 12 requires PHP 8.2+
           - php: '8.2'
             laravel: '12'
-        include:
-          - laravel: '10'
-            testbench: '^8.0'
-          - laravel: '11'
-            testbench: '^9.0'
-          - laravel: '12'
-            testbench: '^10.0'
 
     name: PHP ${{ matrix.php }} – Laravel ${{ matrix.laravel }}
 
     steps:
-      - name: Checkout package
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          path: fastcomments-laravel
-
-      # Sibling repos needed until they are on Packagist
-      - name: Checkout fastcomments-php
-        uses: actions/checkout@v4
-        with:
-          repository: FastComments/fastcomments-php
-          path: fastcomments-php
-
-      - name: Checkout fastcomments-php-sso
-        uses: actions/checkout@v4
-        with:
-          repository: FastComments/fastcomments-php-sso
-          path: fastcomments-php-sso
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
@@ -60,19 +38,9 @@ jobs:
           extensions: mbstring, json
           coverage: none
 
-      - name: Add path repositories
-        working-directory: fastcomments-laravel
-        run: |
-          composer config repositories.fastcomments-php path ../fastcomments-php
-          composer config repositories.fastcomments-php-sso path ../fastcomments-php-sso
-          composer config minimum-stability dev
-
       - name: Install dependencies
-        working-directory: fastcomments-laravel
         run: |
-          composer require "illuminate/support:^${{ matrix.laravel }}.0" "illuminate/view:^${{ matrix.laravel }}.0" "illuminate/contracts:^${{ matrix.laravel }}.0" "orchestra/testbench:${{ matrix.testbench }}" --no-update
-          composer install --no-interaction --prefer-dist
+          composer update --with "illuminate/support:^${{ matrix.laravel }}.0" --with "illuminate/view:^${{ matrix.laravel }}.0" --with "illuminate/contracts:^${{ matrix.laravel }}.0" --no-interaction --prefer-dist
 
       - name: Run tests
-        working-directory: fastcomments-laravel
         run: vendor/bin/phpunit
