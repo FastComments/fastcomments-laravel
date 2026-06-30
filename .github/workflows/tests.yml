@@ -24,6 +24,16 @@ jobs:
           # Laravel 12 requires PHP 8.2+
           - php: '8.2'
             laravel: '12'
+        include:
+          # Pin orchestra/testbench to the major matching each Laravel version
+          # (8 -> Laravel 10, 9 -> 11, 10 -> 12) so resolution doesn't pull
+          # testbench 10 (which requires Laravel 12) onto the 10/11 jobs.
+          - laravel: '10'
+            testbench: '8'
+          - laravel: '11'
+            testbench: '9'
+          - laravel: '12'
+            testbench: '10'
 
     name: PHP ${{ matrix.php }} – Laravel ${{ matrix.laravel }}
 
@@ -40,7 +50,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer update --with "illuminate/support:^${{ matrix.laravel }}.0" --with "illuminate/view:^${{ matrix.laravel }}.0" --with "illuminate/contracts:^${{ matrix.laravel }}.0" --no-interaction --prefer-dist
+          composer update --with "illuminate/support:^${{ matrix.laravel }}.0" --with "illuminate/view:^${{ matrix.laravel }}.0" --with "illuminate/contracts:^${{ matrix.laravel }}.0" --with "orchestra/testbench:^${{ matrix.testbench }}.0" --no-interaction --prefer-dist
 
       - name: Run tests
         run: vendor/bin/phpunit
