@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cfca803ad0452ccf0bd61ed662efec8",
+    "content-hash": "5f9d67b3d37b41aa506c8f065712514e",
     "packages": [
         {
             "name": "brick/math",
@@ -510,16 +510,16 @@
         },
         {
             "name": "fastcomments/fastcomments-php",
-            "version": "v1.2.0",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FastComments/fastcomments-php.git",
-                "reference": "e2e78615a79227417358bf9696a35f4ba016efa0"
+                "reference": "236b5df721fa1bdd1cd8e19b945f33a4549c79fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FastComments/fastcomments-php/zipball/e2e78615a79227417358bf9696a35f4ba016efa0",
-                "reference": "e2e78615a79227417358bf9696a35f4ba016efa0",
+                "url": "https://api.github.com/repos/FastComments/fastcomments-php/zipball/236b5df721fa1bdd1cd8e19b945f33a4549c79fc",
+                "reference": "236b5df721fa1bdd1cd8e19b945f33a4549c79fc",
                 "shasum": ""
             },
             "require": {
@@ -528,7 +528,7 @@
                 "ext-mbstring": "*",
                 "guzzlehttp/guzzle": "^7.3",
                 "guzzlehttp/psr7": "^1.7 || ^2.0",
-                "php": "^7.4 || ^8.0"
+                "php": "^8.1"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3.5",
@@ -567,9 +567,9 @@
             ],
             "support": {
                 "issues": "https://github.com/FastComments/fastcomments-php/issues",
-                "source": "https://github.com/FastComments/fastcomments-php/tree/v1.2.0"
+                "source": "https://github.com/FastComments/fastcomments-php/tree/v3.0.0"
             },
-            "time": "2026-01-09T04:18:56+00:00"
+            "time": "2026-06-30T19:19:04+00:00"
         },
         {
             "name": "fastcomments/sso",
