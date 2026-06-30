@@ -50,6 +50,9 @@ jobs:
 
       - name: Install dependencies
         run: |
+          # EOL Laravel 10/11 pull in advisory-affected framework deps; this is a compat
+          # test matrix (those deps aren't shipped by this package), so don't block on them.
+          composer config --no-plugins policy.advisories.block false
           composer update --with "illuminate/support:^${{ matrix.laravel }}.0" --with "illuminate/view:^${{ matrix.laravel }}.0" --with "illuminate/contracts:^${{ matrix.laravel }}.0" --with "orchestra/testbench:^${{ matrix.testbench }}.0" --no-interaction --prefer-dist
 
       - name: Run tests
