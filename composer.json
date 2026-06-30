@@ -22,7 +22,7 @@
         "illuminate/support": "^10.0|^11.0|^12.0",
         "illuminate/view": "^10.0|^11.0|^12.0",
         "illuminate/contracts": "^10.0|^11.0|^12.0",
-        "fastcomments/fastcomments-php": "*",
+        "fastcomments/fastcomments-php": "^3.0",
         "fastcomments/sso": "*"
     },
     "require-dev": {
